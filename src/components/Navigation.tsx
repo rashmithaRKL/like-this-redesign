@@ -7,6 +7,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
@@ -72,6 +73,10 @@ const Navigation = () => {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem asChild>
+                  <Link to="/profile">Profile</Link>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem asChild>
                   <Link to="/signin">Sign In</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
@@ -100,6 +105,7 @@ const Navigation = () => {
               <Link to="/about" className="text-gray-700 hover:text-pink-600">ABOUT</Link>
               <Link to="/shop" className="text-gray-700 hover:text-pink-600">SHOP</Link>
               <Link to="/contact" className="text-gray-700 hover:text-pink-600">CONTACT US</Link>
+              <Link to="/profile" className="text-gray-700 hover:text-pink-600">PROFILE</Link>
               <div className="flex space-x-4 pt-4 border-t">
                 <Button variant="outline" asChild className="flex-1">
                   <Link to="/signin">Sign In</Link>
