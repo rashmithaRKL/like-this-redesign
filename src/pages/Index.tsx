@@ -1,6 +1,13 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { 
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 import { Star } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
@@ -38,38 +45,74 @@ const Index = () => {
     }
   ];
 
+  const heroSlides = [
+    {
+      id: 1,
+      title: "Sweet Joy",
+      subtitle: "Fresh Cakes",
+      image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=500&h=500&fit=crop",
+      description: "Delicious Chocolate Cake"
+    },
+    {
+      id: 2,
+      title: "Pure Delight",
+      subtitle: "Artisan Baking",
+      image: "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=500&h=500&fit=crop",
+      description: "Vanilla Dream Cake"
+    },
+    {
+      id: 3,
+      title: "Special Moments",
+      subtitle: "Custom Creations",
+      image: "https://images.unsplash.com/photo-1621303837174-89787a7d4729?w=500&h=500&fit=crop",
+      description: "Elegant Wedding Cake"
+    }
+  ];
+
   return (
     <div className="min-h-screen bg-white">
       <Navigation />
       
-      {/* Hero Section */}
+      {/* Hero Section with Slider */}
       <section className="relative min-h-screen bg-gradient-to-br from-pink-200 via-pink-300 to-pink-400 overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute bottom-0 left-0 w-full h-32 bg-white rounded-t-[100px]"></div>
         </div>
         
-        <div className="relative container mx-auto px-4 py-20 flex items-center justify-between">
-          <div className="max-w-2xl text-white animate-fade-in">
-            <p className="text-lg mb-4 font-medium">Fresh Cakes</p>
-            <h1 className="text-6xl md:text-8xl font-script mb-8 leading-tight">
-              Sweet Joy
-            </h1>
-            <div className="w-16 h-0.5 bg-white mb-8"></div>
-            <Button 
-              asChild
-              className="bg-white text-pink-500 hover:bg-pink-50 px-8 py-3 rounded-full font-medium"
-            >
-              <Link to="/shop">Shop Now</Link>
-            </Button>
-          </div>
-          
-          <div className="hidden lg:block animate-scale-in">
-            <img 
-              src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=500&h=500&fit=crop" 
-              alt="Delicious Chocolate Cake" 
-              className="w-96 h-96 object-cover rounded-full shadow-2xl"
-            />
-          </div>
+        <div className="relative container mx-auto px-4 py-20">
+          <Carousel className="w-full h-full">
+            <CarouselContent>
+              {heroSlides.map((slide) => (
+                <CarouselItem key={slide.id}>
+                  <div className="flex items-center justify-between min-h-[80vh]">
+                    <div className="max-w-2xl text-white animate-fade-in">
+                      <p className="text-lg mb-4 font-medium">{slide.subtitle}</p>
+                      <h1 className="text-6xl md:text-8xl font-script mb-8 leading-tight">
+                        {slide.title}
+                      </h1>
+                      <div className="w-16 h-0.5 bg-white mb-8"></div>
+                      <Button 
+                        asChild
+                        className="bg-white text-pink-500 hover:bg-pink-50 px-8 py-3 rounded-full font-medium"
+                      >
+                        <Link to="/shop">Shop Now</Link>
+                      </Button>
+                    </div>
+                    
+                    <div className="hidden lg:block animate-scale-in">
+                      <img 
+                        src={slide.image}
+                        alt={slide.description}
+                        className="w-96 h-96 object-cover rounded-full shadow-2xl"
+                      />
+                    </div>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="left-8 bg-white/20 border-white/30 text-white hover:bg-white/30" />
+            <CarouselNext className="right-8 bg-white/20 border-white/30 text-white hover:bg-white/30" />
+          </Carousel>
         </div>
       </section>
 
