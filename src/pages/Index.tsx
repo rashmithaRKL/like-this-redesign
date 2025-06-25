@@ -49,24 +49,39 @@ const Index = () => {
   const heroSlides = [
     {
       id: 1,
-      title: "Sweet Joy",
+      title: "Sweet Delights",
       subtitle: "Fresh Cakes",
-      image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=500&h=500&fit=crop",
-      description: "Delicious Chocolate Cake"
+      image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&h=600&fit=crop",
+      description: "Delicious Chocolate Cake",
+      gradient: "from-pink-400 via-rose-300 to-pink-500",
+      bgColor: "bg-pink-400"
     },
     {
       id: 2,
-      title: "Pure Delight",
+      title: "Golden Treats",
       subtitle: "Artisan Baking",
-      image: "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=500&h=500&fit=crop",
-      description: "Vanilla Dream Cake"
+      image: "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=600&h=600&fit=crop",
+      description: "Vanilla Dream Cake",
+      gradient: "from-yellow-400 via-orange-300 to-yellow-500",
+      bgColor: "bg-yellow-400"
     },
     {
       id: 3,
-      title: "Special Moments",
-      subtitle: "Custom Creations",
-      image: "https://images.unsplash.com/photo-1621303837174-89787a7d4729?w=500&h=500&fit=crop",
-      description: "Elegant Wedding Cake"
+      title: "Fresh Creations",
+      subtitle: "Custom Designs",
+      image: "https://images.unsplash.com/photo-1621303837174-89787a7d4729?w=600&h=600&fit=crop",
+      description: "Elegant Wedding Cake",
+      gradient: "from-green-400 via-emerald-300 to-green-500",
+      bgColor: "bg-green-400"
+    },
+    {
+      id: 4,
+      title: "Blue Berry Bliss",
+      subtitle: "Seasonal Specials",
+      image: "https://images.unsplash.com/photo-1535141192574-5d4897c12636?w=600&h=600&fit=crop",
+      description: "Berry Special Cake",
+      gradient: "from-blue-400 via-cyan-300 to-blue-500",
+      bgColor: "bg-blue-400"
     }
   ];
 
@@ -74,85 +89,100 @@ const Index = () => {
     <div className="min-h-screen bg-white">
       <Navigation />
       
-      {/* Hero Section with 3D Slider */}
-      <section className="relative min-h-screen bg-gradient-to-br from-pink-200 via-pink-300 to-pink-400 overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute bottom-0 left-0 w-full h-32 bg-white rounded-t-[100px]"></div>
-        </div>
-        
-        <div className="relative container mx-auto px-4 py-20">
-          <Carousel 
-            className="w-full h-full"
-            opts={{
-              align: "start",
-              loop: true,
-            }}
-            plugins={[
-              Autoplay({
-                delay: 4000,
-              }),
-            ]}
-          >
-            <CarouselContent className="perspective-1000">
-              {heroSlides.map((slide, index) => (
-                <CarouselItem key={slide.id} className="transform-gpu">
-                  <div className="flex items-center justify-between min-h-[80vh]">
-                    <div className="max-w-2xl text-white animate-fade-in transform transition-all duration-700 hover:scale-105">
-                      <p className="text-lg mb-4 font-medium opacity-90 transform translate-y-4 animate-fade-in" 
-                         style={{ animationDelay: '0.2s' }}>
-                        {slide.subtitle}
-                      </p>
-                      <h1 className="text-6xl md:text-8xl font-script mb-8 leading-tight transform translate-y-4 animate-fade-in" 
-                          style={{ animationDelay: '0.4s' }}>
-                        {slide.title}
-                      </h1>
-                      <div className="w-16 h-0.5 bg-white mb-8 transform scale-x-0 animate-scale-in" 
-                           style={{ animationDelay: '0.6s', transformOrigin: 'left' }}></div>
-                      <div className="transform translate-y-4 animate-fade-in" style={{ animationDelay: '0.8s' }}>
+      {/* Hero Section with Organic Design */}
+      <section className="relative min-h-screen overflow-hidden">
+        <Carousel 
+          className="w-full h-full"
+          opts={{
+            align: "start",
+            loop: true,
+          }}
+          plugins={[
+            Autoplay({
+              delay: 4000,
+            }),
+          ]}
+        >
+          <CarouselContent>
+            {heroSlides.map((slide, index) => (
+              <CarouselItem key={slide.id}>
+                <div className={`relative min-h-screen bg-gradient-to-br ${slide.gradient} overflow-hidden`}>
+                  {/* Organic Background Shapes */}
+                  <div className="absolute inset-0">
+                    <div className={`absolute top-0 right-0 w-96 h-96 ${slide.bgColor} opacity-30 rounded-full transform translate-x-32 -translate-y-32`}></div>
+                    <div className={`absolute bottom-0 left-0 w-full h-2/3 ${slide.bgColor} opacity-20`} 
+                         style={{
+                           clipPath: 'ellipse(80% 60% at 20% 100%)',
+                         }}></div>
+                    <div className={`absolute top-1/4 left-0 w-3/4 h-3/4 ${slide.bgColor} opacity-15`}
+                         style={{
+                           clipPath: 'ellipse(70% 80% at 0% 50%)',
+                         }}></div>
+                  </div>
+                  
+                  <div className="relative container mx-auto px-4 py-20 flex items-center min-h-screen">
+                    <div className="grid lg:grid-cols-2 gap-12 items-center w-full">
+                      {/* Left Content */}
+                      <div className="text-white space-y-6 animate-fade-in">
+                        <div className="space-y-2">
+                          <h3 className="text-xl font-medium opacity-90">{slide.subtitle}</h3>
+                          <h1 className="text-6xl md:text-7xl font-bold leading-tight">
+                            {slide.title}
+                          </h1>
+                        </div>
+                        
+                        <p className="text-lg opacity-80 max-w-md leading-relaxed">
+                          Cakes are so healthy, refreshing and the perfect way to pack some extra sweetness into your celebrations.
+                        </p>
+                        
+                        {/* Small Product Previews */}
+                        <div className="flex space-x-4 py-4">
+                          {featuredCakes.slice(0, 4).map((cake, idx) => (
+                            <div key={idx} className="w-12 h-12 rounded-full overflow-hidden border-2 border-white/30 hover:border-white/60 transition-all cursor-pointer">
+                              <img src={cake.image} alt={cake.name} className="w-full h-full object-cover" />
+                            </div>
+                          ))}
+                          <div className="w-12 h-12 rounded-full bg-white/20 border-2 border-white/30 flex items-center justify-center">
+                            <span className="text-xs text-white">+</span>
+                          </div>
+                        </div>
+                        
                         <Button 
                           asChild
-                          className="bg-white text-pink-500 hover:bg-pink-50 px-8 py-3 rounded-full font-medium transform transition-all duration-300 hover:scale-110 hover:shadow-2xl"
+                          className="bg-white text-gray-800 hover:bg-gray-100 px-8 py-3 rounded-full font-semibold text-lg transform transition-all duration-300 hover:scale-105 hover:shadow-xl"
                         >
-                          <Link to="/shop">Shop Now</Link>
+                          <Link to="/shop">Order Now</Link>
                         </Button>
                       </div>
-                    </div>
-                    
-                    <div className="hidden lg:block perspective-1000">
-                      <div className="transform transition-all duration-1000 hover:rotate-y-12 hover:scale-110 animate-scale-in" 
-                           style={{ 
-                             animationDelay: '0.5s',
-                             transformStyle: 'preserve-3d'
-                           }}>
-                        <img 
-                          src={slide.image}
-                          alt={slide.description}
-                          className="w-96 h-96 object-cover rounded-full shadow-2xl transform transition-all duration-500 hover:shadow-pink-500/25 relative z-10"
-                          style={{
-                            filter: 'drop-shadow(0 25px 50px rgba(236, 72, 153, 0.3))'
-                          }}
-                        />
-                        {/* 3D Ring Effect */}
-                        <div className="absolute inset-0 w-96 h-96 rounded-full border-4 border-white/30 transform rotate-x-75 scale-110 -z-10" 
-                             style={{ 
-                               transformStyle: 'preserve-3d',
-                               animation: 'spin 8s linear infinite' 
-                             }}></div>
-                        <div className="absolute inset-0 w-96 h-96 rounded-full border-2 border-pink-200/50 transform rotate-y-45 scale-125 -z-20" 
-                             style={{ 
-                               transformStyle: 'preserve-3d',
-                               animation: 'spin 12s linear infinite reverse' 
-                             }}></div>
+                      
+                      {/* Right Content - Product Image */}
+                      <div className="flex justify-center lg:justify-end">
+                        <div className="relative animate-scale-in" style={{ animationDelay: '0.3s' }}>
+                          <div className="w-80 h-80 md:w-96 md:h-96 relative">
+                            <img 
+                              src={slide.image}
+                              alt={slide.description}
+                              className="w-full h-full object-cover rounded-full shadow-2xl transform transition-all duration-500 hover:scale-105"
+                              style={{
+                                filter: 'drop-shadow(0 25px 50px rgba(0, 0, 0, 0.15))'
+                              }}
+                            />
+                            {/* Decorative elements around the image */}
+                            <div className="absolute -top-4 -right-4 w-8 h-8 bg-white/30 rounded-full animate-pulse"></div>
+                            <div className="absolute -bottom-6 -left-6 w-12 h-12 bg-white/20 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+                            <div className="absolute top-1/3 -left-8 w-6 h-6 bg-white/25 rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious className="left-8 bg-white/20 border-white/30 text-white hover:bg-white/30 transform transition-all duration-300 hover:scale-110" />
-            <CarouselNext className="right-8 bg-white/20 border-white/30 text-white hover:bg-white/30 transform transition-all duration-300 hover:scale-110" />
-          </Carousel>
-        </div>
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious className="left-8 bg-white/20 border-white/30 text-white hover:bg-white/30" />
+          <CarouselNext className="right-8 bg-white/20 border-white/30 text-white hover:bg-white/30" />
+        </Carousel>
       </section>
 
       {/* About Section */}
@@ -198,21 +228,23 @@ const Index = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {featuredCakes.map((cake) => (
               <Card key={cake.id} className="group overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
-                <div className="relative overflow-hidden">
-                  <img 
-                    src={cake.image} 
-                    alt={cake.name}
-                    className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300"
-                  />
-                  <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
-                <CardContent className="p-0">
-                  <div className="bg-pink-400 text-white p-4">
-                    <p className="text-sm opacity-90 mb-1">{cake.category}</p>
-                    <h3 className="text-lg font-semibold mb-2">{cake.name}</h3>
-                    <p className="text-xl font-bold">{cake.price}</p>
+                <Link to={`/product/${cake.id}`}>
+                  <div className="relative overflow-hidden">
+                    <img 
+                      src={cake.image} 
+                      alt={cake.name}
+                      className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300"
+                    />
+                    <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   </div>
-                </CardContent>
+                  <CardContent className="p-0">
+                    <div className="bg-pink-400 text-white p-4">
+                      <p className="text-sm opacity-90 mb-1">{cake.category}</p>
+                      <h3 className="text-lg font-semibold mb-2">{cake.name}</h3>
+                      <p className="text-xl font-bold">{cake.price}</p>
+                    </div>
+                  </CardContent>
+                </Link>
               </Card>
             ))}
           </div>

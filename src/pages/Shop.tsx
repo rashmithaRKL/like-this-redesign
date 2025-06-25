@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Star, Filter } from "lucide-react";
+import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 
@@ -171,21 +172,23 @@ const Shop = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filteredProducts.map((product) => (
                   <Card key={product.id} className="group overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
-                    <div className="relative overflow-hidden">
-                      <img 
-                        src={product.image} 
-                        alt={product.name}
-                        className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300"
-                      />
-                      <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    </div>
-                    <CardContent className="p-0">
-                      <div className="bg-pink-400 text-white p-4">
-                        <p className="text-sm opacity-90 mb-1 capitalize">{product.category}</p>
-                        <h3 className="text-lg font-semibold mb-2">{product.name}</h3>
-                        <p className="text-xl font-bold">{product.price}</p>
+                    <Link to={`/product/${product.id}`}>
+                      <div className="relative overflow-hidden">
+                        <img 
+                          src={product.image} 
+                          alt={product.name}
+                          className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300"
+                        />
+                        <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                       </div>
-                    </CardContent>
+                      <CardContent className="p-0">
+                        <div className="bg-pink-400 text-white p-4">
+                          <p className="text-sm opacity-90 mb-1 capitalize">{product.category}</p>
+                          <h3 className="text-lg font-semibold mb-2">{product.name}</h3>
+                          <p className="text-xl font-bold">{product.price}</p>
+                        </div>
+                      </CardContent>
+                    </Link>
                   </Card>
                 ))}
               </div>
