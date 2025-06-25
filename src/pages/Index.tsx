@@ -12,6 +12,7 @@ import { Star } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import Autoplay from "embla-carousel-autoplay";
 
 const Index = () => {
   const featuredCakes = [
@@ -73,45 +74,83 @@ const Index = () => {
     <div className="min-h-screen bg-white">
       <Navigation />
       
-      {/* Hero Section with Slider */}
+      {/* Hero Section with 3D Slider */}
       <section className="relative min-h-screen bg-gradient-to-br from-pink-200 via-pink-300 to-pink-400 overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute bottom-0 left-0 w-full h-32 bg-white rounded-t-[100px]"></div>
         </div>
         
         <div className="relative container mx-auto px-4 py-20">
-          <Carousel className="w-full h-full">
-            <CarouselContent>
-              {heroSlides.map((slide) => (
-                <CarouselItem key={slide.id}>
+          <Carousel 
+            className="w-full h-full"
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            plugins={[
+              Autoplay({
+                delay: 4000,
+              }),
+            ]}
+          >
+            <CarouselContent className="perspective-1000">
+              {heroSlides.map((slide, index) => (
+                <CarouselItem key={slide.id} className="transform-gpu">
                   <div className="flex items-center justify-between min-h-[80vh]">
-                    <div className="max-w-2xl text-white animate-fade-in">
-                      <p className="text-lg mb-4 font-medium">{slide.subtitle}</p>
-                      <h1 className="text-6xl md:text-8xl font-script mb-8 leading-tight">
+                    <div className="max-w-2xl text-white animate-fade-in transform transition-all duration-700 hover:scale-105">
+                      <p className="text-lg mb-4 font-medium opacity-90 transform translate-y-4 animate-fade-in" 
+                         style={{ animationDelay: '0.2s' }}>
+                        {slide.subtitle}
+                      </p>
+                      <h1 className="text-6xl md:text-8xl font-script mb-8 leading-tight transform translate-y-4 animate-fade-in" 
+                          style={{ animationDelay: '0.4s' }}>
                         {slide.title}
                       </h1>
-                      <div className="w-16 h-0.5 bg-white mb-8"></div>
-                      <Button 
-                        asChild
-                        className="bg-white text-pink-500 hover:bg-pink-50 px-8 py-3 rounded-full font-medium"
-                      >
-                        <Link to="/shop">Shop Now</Link>
-                      </Button>
+                      <div className="w-16 h-0.5 bg-white mb-8 transform scale-x-0 animate-scale-in" 
+                           style={{ animationDelay: '0.6s', transformOrigin: 'left' }}></div>
+                      <div className="transform translate-y-4 animate-fade-in" style={{ animationDelay: '0.8s' }}>
+                        <Button 
+                          asChild
+                          className="bg-white text-pink-500 hover:bg-pink-50 px-8 py-3 rounded-full font-medium transform transition-all duration-300 hover:scale-110 hover:shadow-2xl"
+                        >
+                          <Link to="/shop">Shop Now</Link>
+                        </Button>
+                      </div>
                     </div>
                     
-                    <div className="hidden lg:block animate-scale-in">
-                      <img 
-                        src={slide.image}
-                        alt={slide.description}
-                        className="w-96 h-96 object-cover rounded-full shadow-2xl"
-                      />
+                    <div className="hidden lg:block perspective-1000">
+                      <div className="transform transition-all duration-1000 hover:rotate-y-12 hover:scale-110 animate-scale-in" 
+                           style={{ 
+                             animationDelay: '0.5s',
+                             transformStyle: 'preserve-3d'
+                           }}>
+                        <img 
+                          src={slide.image}
+                          alt={slide.description}
+                          className="w-96 h-96 object-cover rounded-full shadow-2xl transform transition-all duration-500 hover:shadow-pink-500/25 relative z-10"
+                          style={{
+                            filter: 'drop-shadow(0 25px 50px rgba(236, 72, 153, 0.3))'
+                          }}
+                        />
+                        {/* 3D Ring Effect */}
+                        <div className="absolute inset-0 w-96 h-96 rounded-full border-4 border-white/30 transform rotate-x-75 scale-110 -z-10" 
+                             style={{ 
+                               transformStyle: 'preserve-3d',
+                               animation: 'spin 8s linear infinite' 
+                             }}></div>
+                        <div className="absolute inset-0 w-96 h-96 rounded-full border-2 border-pink-200/50 transform rotate-y-45 scale-125 -z-20" 
+                             style={{ 
+                               transformStyle: 'preserve-3d',
+                               animation: 'spin 12s linear infinite reverse' 
+                             }}></div>
+                      </div>
                     </div>
                   </div>
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className="left-8 bg-white/20 border-white/30 text-white hover:bg-white/30" />
-            <CarouselNext className="right-8 bg-white/20 border-white/30 text-white hover:bg-white/30" />
+            <CarouselPrevious className="left-8 bg-white/20 border-white/30 text-white hover:bg-white/30 transform transition-all duration-300 hover:scale-110" />
+            <CarouselNext className="right-8 bg-white/20 border-white/30 text-white hover:bg-white/30 transform transition-all duration-300 hover:scale-110" />
           </Carousel>
         </div>
       </section>

@@ -108,13 +108,40 @@ export default {
 						transform: 'scale(1)',
 						opacity: '1'
 					}
+				},
+				'rotate-y': {
+					'0%': {
+						transform: 'rotateY(0deg)'
+					},
+					'100%': {
+						transform: 'rotateY(360deg)'
+					}
+				},
+				'spin': {
+					'0%': {
+						transform: 'rotate(0deg)'
+					},
+					'100%': {
+						transform: 'rotate(360deg)'
+					}
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'fade-in': 'fade-in 0.6s ease-out',
-				'scale-in': 'scale-in 0.4s ease-out'
+				'scale-in': 'scale-in 0.4s ease-out',
+				'rotate-y': 'rotate-y 2s ease-in-out infinite',
+				'spin': 'spin 1s linear infinite'
+			},
+			perspective: {
+				'1000': '1000px',
+				'1500': '1500px',
+			},
+			rotate: {
+				'x-75': 'rotateX(75deg)',
+				'y-12': 'rotateY(12deg)',
+				'y-45': 'rotateY(45deg)',
 			}
 		}
 	},
