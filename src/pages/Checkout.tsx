@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -32,9 +31,9 @@ const Checkout = () => {
     }
   ];
 
-  const subtotal = orderItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-  const shipping = 0; // Free shipping
-  const total = subtotal + shipping;
+  const subtotal: number = orderItems.reduce((sum: number, item) => sum + (item.price * item.quantity), 0);
+  const shipping: number = 0; // Free shipping
+  const total: number = subtotal + shipping;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
