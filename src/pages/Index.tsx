@@ -10,36 +10,42 @@ import {
 } from "@/components/ui/carousel";
 import { Star } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import Autoplay from "embla-carousel-autoplay";
 
 const Index = () => {
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const featuredCakes = [
     {
       id: 1,
-      name: "Sutin Martin Cake",
+      name: "Chocolate Layer Cake",
       price: "Rs. 7500.00",
       image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=300&fit=crop",
       category: "Cakes"
     },
     {
       id: 2,
-      name: "Vanilla Car Design",
+      name: "Vanilla Dream Cake",
       price: "Rs. 6500.00",
       image: "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=400&h=300&fit=crop",
       category: "Cakes"
     },
     {
       id: 3,
-      name: "Engagement Cake",
+      name: "Rainbow Layer Cake",
       price: "Rs. 10000.00",
       image: "https://images.unsplash.com/photo-1621303837174-89787a7d4729?w=400&h=300&fit=crop",
       category: "Cakes"
     },
     {
       id: 4,
-      name: "Vanilla Cake",
+      name: "Berry Special Cake",
       price: "Rs. 4500.00",
       image: "https://images.unsplash.com/photo-1535141192574-5d4897c12636?w=400&h=300&fit=crop",
       category: "Cakes"
@@ -49,39 +55,63 @@ const Index = () => {
   const heroSlides = [
     {
       id: 1,
-      title: "Sweet Delights",
-      subtitle: "Fresh Cakes",
-      image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&h=600&fit=crop",
-      description: "Delicious Chocolate Cake",
-      gradient: "from-pink-400 via-rose-300 to-pink-500",
-      bgColor: "bg-pink-400"
+      title: "Chocolate Delights",
+      subtitle: "Rich & Decadent",
+      image: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=600&h=600&fit=crop",
+      description: "Rich Chocolate Layer Cake",
+      gradient: "from-amber-600 via-yellow-500 to-orange-400",
+      bgColor: "bg-amber-600",
+      smallImages: [
+        "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=80&h=80&fit=crop",
+        "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=80&h=80&fit=crop",
+        "https://images.unsplash.com/photo-1549312811-ef8c6b8b8e5b?w=80&h=80&fit=crop",
+        "https://images.unsplash.com/photo-1571115764595-644a1f56a55c?w=80&h=80&fit=crop"
+      ]
     },
     {
       id: 2,
       title: "Golden Treats",
-      subtitle: "Artisan Baking",
+      subtitle: "Vanilla Dreams",
       image: "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=600&h=600&fit=crop",
       description: "Vanilla Dream Cake",
       gradient: "from-yellow-400 via-orange-300 to-yellow-500",
-      bgColor: "bg-yellow-400"
+      bgColor: "bg-yellow-400",
+      smallImages: [
+        "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=80&h=80&fit=crop",
+        "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=80&h=80&fit=crop",
+        "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=80&h=80&fit=crop",
+        "https://images.unsplash.com/photo-1549312811-ef8c6b8b8e5b?w=80&h=80&fit=crop"
+      ]
     },
     {
       id: 3,
-      title: "Fresh Creations",
-      subtitle: "Custom Designs",
+      title: "Rainbow Magic",
+      subtitle: "Colorful Creations",
       image: "https://images.unsplash.com/photo-1621303837174-89787a7d4729?w=600&h=600&fit=crop",
-      description: "Elegant Wedding Cake",
-      gradient: "from-green-400 via-emerald-300 to-green-500",
-      bgColor: "bg-green-400"
+      description: "Rainbow Layer Cake",
+      gradient: "from-pink-400 via-purple-300 to-indigo-400",
+      bgColor: "bg-pink-400",
+      smallImages: [
+        "https://images.unsplash.com/photo-1621303837174-89787a7d4729?w=80&h=80&fit=crop",
+        "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=80&h=80&fit=crop",
+        "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=80&h=80&fit=crop",
+        "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=80&h=80&fit=crop"
+      ]
     },
     {
       id: 4,
-      title: "Blue Berry Bliss",
-      subtitle: "Seasonal Specials",
+      title: "Berry Bliss",
+      subtitle: "Fresh & Fruity",
       image: "https://images.unsplash.com/photo-1535141192574-5d4897c12636?w=600&h=600&fit=crop",
       description: "Berry Special Cake",
-      gradient: "from-blue-400 via-cyan-300 to-blue-500",
-      bgColor: "bg-blue-400"
+      gradient: "from-blue-400 via-purple-300 to-pink-400",
+      bgColor: "bg-blue-400",
+      smallImages: [
+        "https://images.unsplash.com/photo-1535141192574-5d4897c12636?w=80&h=80&fit=crop",
+        "https://images.unsplash.com/photo-1621303837174-89787a7d4729?w=80&h=80&fit=crop",
+        "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=80&h=80&fit=crop",
+        "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=80&h=80&fit=crop"
+      ]
     }
   ];
 
@@ -90,7 +120,7 @@ const Index = () => {
       <Navigation />
       
       {/* Hero Section with Organic Design */}
-      <section className="relative min-h-screen overflow-hidden">
+      <section className="relative min-h-screen overflow-hidden pt-16">
         <Carousel 
           className="w-full h-full"
           opts={{
@@ -137,9 +167,9 @@ const Index = () => {
                         
                         {/* Small Product Previews */}
                         <div className="flex space-x-4 py-4">
-                          {featuredCakes.slice(0, 4).map((cake, idx) => (
+                          {slide.smallImages.map((img, idx) => (
                             <div key={idx} className="w-12 h-12 rounded-full overflow-hidden border-2 border-white/30 hover:border-white/60 transition-all cursor-pointer">
-                              <img src={cake.image} alt={cake.name} className="w-full h-full object-cover" />
+                              <img src={img} alt={`Preview ${idx + 1}`} className="w-full h-full object-cover" />
                             </div>
                           ))}
                           <div className="w-12 h-12 rounded-full bg-white/20 border-2 border-white/30 flex items-center justify-center">
