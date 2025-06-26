@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import AnimatedSection from "@/components/AnimatedSection";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -28,16 +29,18 @@ const Contact = () => {
       
       <div className="pt-20">
         {/* Hero Section */}
-        <div className="bg-gradient-to-r from-pink-400 to-pink-500 text-white py-16">
-          <div className="container mx-auto px-4 text-center">
-            <h1 className="text-4xl md:text-5xl font-script mb-4">Contact Us</h1>
+        <AnimatedSection animation="fadeIn">
+          <div className="bg-gradient-to-r from-pink-400 to-pink-500 text-white py-16">
+            <div className="container mx-auto px-4 text-center">
+              <h1 className="text-4xl md:text-5xl font-script mb-4">Contact Us</h1>
+            </div>
           </div>
-        </div>
+        </AnimatedSection>
 
         <div className="container mx-auto px-4 py-16">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Contact Form */}
-            <div>
+            <AnimatedSection animation="slideRight">
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <Label htmlFor="fullName">Full Name</Label>
@@ -93,10 +96,10 @@ const Contact = () => {
                   SEND NOW
                 </Button>
               </form>
-            </div>
+            </AnimatedSection>
             
             {/* Map Section */}
-            <div>
+            <AnimatedSection animation="slideLeft">
               <Card>
                 <CardContent className="p-0">
                   <div className="aspect-video bg-gray-200 rounded-lg overflow-hidden">
@@ -112,7 +115,7 @@ const Contact = () => {
                   </div>
                 </CardContent>
               </Card>
-            </div>
+            </AnimatedSection>
           </div>
         </div>
       </div>
