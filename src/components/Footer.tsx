@@ -2,7 +2,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Facebook, Twitter, Linkedin, MapPin, Phone, Mail } from "lucide-react";
+import { Facebook, Twitter, Linkedin, Instagram, MapPin, Phone, Mail } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -11,25 +11,31 @@ const Footer = () => {
       <div className="bg-gray-900 py-8">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <h3 className="text-lg font-semibold">Subscribe to our newsletter</h3>
+            <div>
+              <h3 className="text-lg font-semibold">Stay Sweet with Our Newsletter</h3>
+              <p className="text-gray-400 text-sm">Get the latest cake recipes, baking tips, and exclusive offers!</p>
+            </div>
             <div className="flex w-full md:w-auto max-w-md">
               <Input 
                 type="email" 
-                placeholder="Enter your email" 
-                className="rounded-r-none bg-white text-black"
+                placeholder="Enter your email address" 
+                className="rounded-r-none bg-white text-black border-0"
               />
               <Button className="rounded-l-none bg-pink-500 hover:bg-pink-600 px-6">
                 Subscribe
               </Button>
             </div>
             <div className="flex space-x-4">
-              <Button variant="ghost" size="icon" className="text-white hover:text-pink-400">
+              <Button variant="ghost" size="icon" className="text-white hover:text-pink-400 hover:bg-gray-800">
                 <Facebook className="w-5 h-5" />
               </Button>
-              <Button variant="ghost" size="icon" className="text-white hover:text-pink-400">
+              <Button variant="ghost" size="icon" className="text-white hover:text-pink-400 hover:bg-gray-800">
+                <Instagram className="w-5 h-5" />
+              </Button>
+              <Button variant="ghost" size="icon" className="text-white hover:text-pink-400 hover:bg-gray-800">
                 <Twitter className="w-5 h-5" />
               </Button>
-              <Button variant="ghost" size="icon" className="text-white hover:text-pink-400">
+              <Button variant="ghost" size="icon" className="text-white hover:text-pink-400 hover:bg-gray-800">
                 <Linkedin className="w-5 h-5" />
               </Button>
             </div>
@@ -49,51 +55,65 @@ const Footer = () => {
                 </div>
                 <span className="text-xl font-script text-pink-400">CakesRBakes</span>
               </div>
-              <p className="text-gray-400 leading-relaxed">
-                "Bringing sweetness to your celebrations with love and care. 
-                CakesRBakes, where every bite is crafted to be a delightful experience!"
+              <p className="text-gray-400 leading-relaxed mb-4">
+                Crafting memorable moments with delicious cakes and premium baking ingredients. 
+                Your celebration deserves the sweetest touch!
               </p>
-            </div>
-
-            {/* Company Links */}
-            <div>
-              <h4 className="text-lg font-script text-pink-400 mb-6">Company</h4>
-              <div className="space-y-3">
-                <Link to="/" className="block text-gray-400 hover:text-white transition-colors">Home</Link>
-                <Link to="/about" className="block text-gray-400 hover:text-white transition-colors">About</Link>
-                <Link to="/shop" className="block text-gray-400 hover:text-white transition-colors">Chocolates</Link>
-                <Link to="/shop/ingredients" className="block text-gray-400 hover:text-white transition-colors">Ingredients</Link>
-                <Link to="/contact" className="block text-gray-400 hover:text-white transition-colors">Contact us</Link>
+              <div className="flex items-center text-gray-400 mb-2">
+                <MapPin className="w-4 h-4 mr-3 text-pink-400" />
+                <span>123 Baker Street, Sweet City, SC 12345</span>
               </div>
             </div>
 
-            {/* Menu Links */}
+            {/* Quick Links */}
             <div>
-              <h4 className="text-lg font-script text-pink-400 mb-6">Menu</h4>
+              <h4 className="text-lg font-script text-pink-400 mb-6">Quick Links</h4>
               <div className="space-y-3">
-                <Link to="/" className="block text-gray-400 hover:text-white transition-colors">Home</Link>
-                <Link to="/about" className="block text-gray-400 hover:text-white transition-colors">About</Link>
-                <Link to="/shop" className="block text-gray-400 hover:text-white transition-colors">Chocolates</Link>
-                <Link to="/shop/ingredients" className="block text-gray-400 hover:text-white transition-colors">Ingredients</Link>
-                <Link to="/contact" className="block text-gray-400 hover:text-white transition-colors">Contact us</Link>
+                <Link to="/" className="block text-gray-400 hover:text-white transition-colors hover:translate-x-1 duration-200">Home</Link>
+                <Link to="/about" className="block text-gray-400 hover:text-white transition-colors hover:translate-x-1 duration-200">About Us</Link>
+                <Link to="/shop" className="block text-gray-400 hover:text-white transition-colors hover:translate-x-1 duration-200">Our Products</Link>
+                <Link to="/shop/cakes" className="block text-gray-400 hover:text-white transition-colors hover:translate-x-1 duration-200">Custom Cakes</Link>
+                <Link to="/contact" className="block text-gray-400 hover:text-white transition-colors hover:translate-x-1 duration-200">Contact</Link>
+              </div>
+            </div>
+
+            {/* Categories */}
+            <div>
+              <h4 className="text-lg font-script text-pink-400 mb-6">Product Categories</h4>
+              <div className="space-y-3">
+                <Link to="/shop/cakes" className="block text-gray-400 hover:text-white transition-colors hover:translate-x-1 duration-200">Birthday Cakes</Link>
+                <Link to="/shop/cakes" className="block text-gray-400 hover:text-white transition-colors hover:translate-x-1 duration-200">Wedding Cakes</Link>
+                <Link to="/shop/ingredients" className="block text-gray-400 hover:text-white transition-colors hover:translate-x-1 duration-200">Baking Ingredients</Link>
+                <Link to="/shop/decorations" className="block text-gray-400 hover:text-white transition-colors hover:translate-x-1 duration-200">Cake Decorations</Link>
+                <Link to="/shop" className="block text-gray-400 hover:text-white transition-colors hover:translate-x-1 duration-200">Baking Tools</Link>
               </div>
             </div>
 
             {/* Contact Info */}
             <div>
-              <h4 className="text-lg font-script text-pink-400 mb-6">Contact Us</h4>
-              <div className="space-y-3">
+              <h4 className="text-lg font-script text-pink-400 mb-6">Get in Touch</h4>
+              <div className="space-y-4">
                 <div className="flex items-center text-gray-400">
-                  <MapPin className="w-4 h-4 mr-3 text-pink-400" />
-                  <span>Location</span>
+                  <Phone className="w-4 h-4 mr-3 text-pink-400 flex-shrink-0" />
+                  <div>
+                    <p className="font-medium">+94 70 558 8789</p>
+                    <p className="text-sm">Mon-Fri 9AM-6PM</p>
+                  </div>
                 </div>
                 <div className="flex items-center text-gray-400">
-                  <Phone className="w-4 h-4 mr-3 text-pink-400" />
-                  <span>Call +9470 558 8789</span>
+                  <Mail className="w-4 h-4 mr-3 text-pink-400 flex-shrink-0" />
+                  <div>
+                    <p className="font-medium">hello@cakesrbakes.com</p>
+                    <p className="text-sm">24/7 Email Support</p>
+                  </div>
                 </div>
-                <div className="flex items-center text-gray-400">
-                  <Mail className="w-4 h-4 mr-3 text-pink-400" />
-                  <span>rksoftwaretechnologies@gmail.com</span>
+                <div>
+                  <h5 className="text-white font-medium mb-2">Business Hours</h5>
+                  <div className="text-sm text-gray-400 space-y-1">
+                    <p>Monday - Friday: 8AM - 8PM</p>
+                    <p>Saturday: 9AM - 6PM</p>
+                    <p>Sunday: 10AM - 4PM</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -103,10 +123,17 @@ const Footer = () => {
 
       {/* Copyright */}
       <div className="border-t border-gray-800 py-6">
-        <div className="container mx-auto px-4 text-center">
-          <p className="text-gray-400">
-            © 2025 All Rights Reserved By RK Software Technologies
-          </p>
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row items-center justify-between">
+            <p className="text-gray-400 text-sm">
+              © 2025 CakesRBakes. All Rights Reserved. Made with ❤️ by RK Software Technologies
+            </p>
+            <div className="flex space-x-6 mt-4 md:mt-0">
+              <Link to="#" className="text-gray-400 hover:text-white text-sm transition-colors">Privacy Policy</Link>
+              <Link to="#" className="text-gray-400 hover:text-white text-sm transition-colors">Terms of Service</Link>
+              <Link to="#" className="text-gray-400 hover:text-white text-sm transition-colors">Cookie Policy</Link>
+            </div>
+          </div>
         </div>
       </div>
     </footer>

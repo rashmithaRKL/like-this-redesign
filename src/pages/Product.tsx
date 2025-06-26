@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -7,7 +6,11 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
-import { Star, Heart, Share2, ShoppingCart, Plus, Minus, ChevronLeft, ChevronRight } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Star, Heart, Share2, ShoppingCart, Plus, Minus, ChevronLeft, ChevronRight, Upload, X } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 
@@ -15,13 +18,36 @@ const Product = () => {
   const { id } = useParams();
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
+  const [selectedWeight, setSelectedWeight] = useState("1000");
+  const [newReview, setNewReview] = useState({
+    rating: 5,
+    comment: "",
+    images: [] as File[]
+  });
 
-  // Mock product data - in real app, this would come from API
+  // Generate weight options from 200g to 3kg
+  const weightOptions = [
+    ...Array.from({ length: 17 }, (_, i) => ({ value: `${200 + i * 50}`, label: `${200 + i * 50}g` })), // 200g to 1000g (50g increments)
+    { value: "1250", label: "1.25 Kg" },
+    { value: "1500", label: "1.5 Kg" },
+    { value: "1750", label: "1.75 Kg" },
+    { value: "2000", label: "2 Kg" },
+    { value: "2250", label: "2.25 Kg" },
+    { value: "2500", label: "2.5 Kg" },
+    { value: "2750", label: "2.75 Kg" },
+    { value: "3000", label: "3 Kg" }
+  ];
+
+  // Calculate price based on weight
+  const basePrice = 7500;
+  const pricePerGram = basePrice / 1000;
+  const currentPrice = Math.round(pricePerGram * parseInt(selectedWeight));
+
+  // Mock product data
   const product = {
     id: parseInt(id || "1"),
     name: "Sutin Martin Cake",
-    price: "Rs. 7500.00",
-    originalPrice: "Rs. 8500.00",
+    basePrice: 7500,
     rating: 4.8,
     reviewCount: 24,
     description: "A luxurious chocolate cake with layers of rich ganache and fresh berries. Perfect for special celebrations and memorable moments. Handcrafted with premium Belgian chocolate and the finest ingredients.",
@@ -35,7 +61,6 @@ const Product = () => {
     tags: ["Chocolate", "Birthday", "Premium", "Handmade"],
     ingredients: ["Premium Belgian Chocolate", "Fresh Cream", "Organic Eggs", "Pure Vanilla", "Fresh Berries"],
     allergens: ["Eggs", "Dairy", "Gluten"],
-    weight: "1 kg",
     servings: "8-10 people"
   };
 
@@ -129,6 +154,27 @@ const Product = () => {
     setSelectedImageIndex((prev) => (prev - 1 + product.images.length) % product.images.length);
   };
 
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []);
+    setNewReview(prev => ({
+      ...prev,
+      images: [...prev.images, ...files].slice(0, 3) // Limit to 3 images
+    }));
+  };
+
+  const removeImage = (index: number) => {
+    setNewReview(prev => ({
+      ...prev,
+      images: prev.images.filter((_, i) => i !== index)
+    }));
+  };
+
+  const handleSubmitReview = () => {
+    console.log("Submitting review:", newReview);
+    // Reset form
+    setNewReview({ rating: 5, comment: "", images: [] });
+  };
+
   return (
     <div className="min-h-screen bg-white">
       <Navigation />
@@ -208,19 +254,37 @@ const Product = () => {
                 </div>
                 
                 <div className="flex items-center space-x-4 mb-6">
-                  <span className="text-3xl font-bold text-pink-600">{product.price}</span>
-                  <span className="text-xl text-gray-500 line-through">{product.originalPrice}</span>
-                  <Badge variant="destructive">12% OFF</Badge>
+                  <span className="text-3xl font-bold text-pink-600">Rs. {currentPrice.toLocaleString()}.00</span>
+                  {currentPrice !== basePrice && (
+                    <span className="text-xl text-gray-500 line-through">Rs. {basePrice.toLocaleString()}.00</span>
+                  )}
                 </div>
               </div>
 
               <p className="text-gray-600 leading-relaxed">{product.description}</p>
 
+              {/* Weight Selection */}
+              <div className="space-y-2">
+                <Label htmlFor="weight">Weight:</Label>
+                <Select value={selectedWeight} onValueChange={setSelectedWeight}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select weight" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {weightOptions.map((option) => (
+                      <SelectItem key={option.value} value={option.value}>
+                        {option.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
               {/* Product Details */}
               <div className="grid grid-cols-2 gap-4 p-4 bg-gray-50 rounded-lg">
                 <div>
                   <span className="text-sm font-medium text-gray-500">Weight:</span>
-                  <p className="text-gray-900">{product.weight}</p>
+                  <p className="text-gray-900">{weightOptions.find(w => w.value === selectedWeight)?.label}</p>
                 </div>
                 <div>
                   <span className="text-sm font-medium text-gray-500">Servings:</span>
@@ -297,6 +361,91 @@ const Product = () => {
             
             <TabsContent value="reviews" className="mt-6">
               <div className="space-y-6">
+                {/* Add Review Form */}
+                <Card>
+                  <CardContent className="p-6">
+                    <h3 className="text-xl font-semibold mb-4">Add Your Review</h3>
+                    <div className="space-y-4">
+                      <div>
+                        <Label htmlFor="rating">Rating</Label>
+                        <div className="flex items-center space-x-2 mt-1">
+                          {[1, 2, 3, 4, 5].map((star) => (
+                            <button
+                              key={star}
+                              onClick={() => setNewReview(prev => ({ ...prev, rating: star }))}
+                              className="focus:outline-none"
+                            >
+                              <Star 
+                                className={`w-6 h-6 ${star <= newReview.rating ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'}`} 
+                              />
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <Label htmlFor="comment">Your Review</Label>
+                        <Textarea
+                          id="comment"
+                          value={newReview.comment}
+                          onChange={(e) => setNewReview(prev => ({ ...prev, comment: e.target.value }))}
+                          placeholder="Share your experience with this product..."
+                          className="mt-1"
+                          rows={4}
+                        />
+                      </div>
+                      
+                      <div>
+                        <Label>Add Photos (Optional)</Label>
+                        <div className="mt-2 space-y-2">
+                          <div className="flex items-center space-x-2">
+                            <Input
+                              type="file"
+                              accept="image/*"
+                              multiple
+                              onChange={handleImageUpload}
+                              className="hidden"
+                              id="review-images"
+                            />
+                            <Label
+                              htmlFor="review-images"
+                              className="flex items-center space-x-2 cursor-pointer bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-lg transition-colors"
+                            >
+                              <Upload className="w-4 h-4" />
+                              <span>Upload Images</span>
+                            </Label>
+                          </div>
+                          
+                          {newReview.images.length > 0 && (
+                            <div className="flex space-x-2">
+                              {newReview.images.map((file, index) => (
+                                <div key={index} className="relative">
+                                  <img
+                                    src={URL.createObjectURL(file)}
+                                    alt={`Review image ${index + 1}`}
+                                    className="w-16 h-16 object-cover rounded-lg"
+                                  />
+                                  <button
+                                    onClick={() => removeImage(index)}
+                                    className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full p-1 hover:bg-red-600"
+                                  >
+                                    <X className="w-3 h-3" />
+                                  </button>
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                      
+                      <Button onClick={handleSubmitReview} className="bg-pink-500 hover:bg-pink-600">
+                        Submit Review
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Existing Reviews */}
                 {reviews.map((review) => (
                   <Card key={review.id}>
                     <CardContent className="p-6">

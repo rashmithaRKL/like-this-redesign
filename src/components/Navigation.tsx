@@ -31,25 +31,9 @@ const Navigation = () => {
             <Link to="/about" className="text-gray-700 hover:text-pink-600 transition-colors">
               ABOUT
             </Link>
-            <DropdownMenu>
-              <DropdownMenuTrigger className="text-gray-700 hover:text-pink-600 transition-colors flex items-center">
-                SHOP
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem asChild>
-                  <Link to="/shop">All Products</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link to="/shop/cakes">Cakes</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link to="/shop/ingredients">Ingredients</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link to="/shop/decorations">Decorations</Link>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <Link to="/shop" className="text-gray-700 hover:text-pink-600 transition-colors">
+              SHOP
+            </Link>
             <Link to="/contact" className="text-gray-700 hover:text-pink-600 transition-colors">
               CONTACT US
             </Link>
