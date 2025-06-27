@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import Navigation from "@/components/Navigation";
-import Footer from "@/components/Footer";
+import CustomFooter from "@/components/CustomFooter";
 import AnimatedSection from "@/components/AnimatedSection";
 
 const Contact = () => {
@@ -120,7 +120,7 @@ const Contact = () => {
         </div>
       </div>
       
-      <Footer />
+      <CustomFooter />
     </div>
   );
 };

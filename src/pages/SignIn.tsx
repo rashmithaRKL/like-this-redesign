@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Eye, EyeOff } from "lucide-react";
 import Navigation from "@/components/Navigation";
-import Footer from "@/components/Footer";
+import CustomFooter from "@/components/CustomFooter";
 import AnimatedSection from "@/components/AnimatedSection";
 
 const SignIn = () => {
@@ -124,7 +124,7 @@ const SignIn = () => {
         </div>
       </div>
       
-      <Footer />
+      <CustomFooter />
     </div>
   );
 };
