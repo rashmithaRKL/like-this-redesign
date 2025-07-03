@@ -1,14 +1,16 @@
-
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Calendar, TrendingUp, DollarSign, ShoppingCart, Users, Package } from "lucide-react";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Calendar, TrendingUp, DollarSign, ShoppingCart, Users, Package, Download, FileText } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell } from 'recharts';
+import { useToast } from "@/hooks/use-toast";
 
 const AdminReports = () => {
   const [dateRange, setDateRange] = useState("last_7_days");
   const [reportType, setReportType] = useState("revenue");
+  const { toast } = useToast();
 
   // Mock data for charts
   const revenueData = [
@@ -45,6 +47,103 @@ const AdminReports = () => {
     growthRate: 12.5
   };
 
+  const exportRevenueToExcel = () => {
+    const csvContent = [
+      ['Date', 'Revenue', 'Orders'],
+      ...revenueData.map(item => [item.date, item.revenue.toString(), item.orders.toString()])
+    ].map(row => row.join(',')).join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', `revenue_report_${new Date().toISOString().split('T')[0]}.csv`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    toast({
+      title: "Excel Export Complete",
+      description: "Revenue report has been exported as CSV file",
+    });
+  };
+
+  const exportRevenueToPDF = () => {
+    const printContent = `
+      <html>
+        <head>
+          <title>Revenue Report</title>
+          <style>
+            body { font-family: Arial, sans-serif; margin: 20px; }
+            h1 { color: #333; text-align: center; }
+            table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+            th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+            th { background-color: #f2f2f2; font-weight: bold; }
+            .header { text-align: center; margin-bottom: 20px; }
+            .date { color: #666; }
+            .stats { display: flex; justify-content: space-around; margin: 20px 0; }
+            .stat-card { text-align: center; padding: 10px; border: 1px solid #ddd; border-radius: 5px; }
+          </style>
+        </head>
+        <body>
+          <div class="header">
+            <h1>CakesRBakes - Revenue Report</h1>
+            <p class="date">Generated on: ${new Date().toLocaleDateString()}</p>
+          </div>
+          <div class="stats">
+            <div class="stat-card">
+              <h3>Total Revenue</h3>
+              <p>$${monthlyStats.totalRevenue.toLocaleString()}</p>
+            </div>
+            <div class="stat-card">
+              <h3>Total Orders</h3>
+              <p>${monthlyStats.totalOrders}</p>
+            </div>
+            <div class="stat-card">
+              <h3>Growth Rate</h3>
+              <p>+${monthlyStats.growthRate}%</p>
+            </div>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Revenue</th>
+                <th>Orders</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${revenueData.map(item => `
+                <tr>
+                  <td>${item.date}</td>
+                  <td>$${item.revenue}</td>
+                  <td>${item.orders}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </body>
+      </html>
+    `;
+
+    const printWindow = window.open('', '_blank');
+    if (printWindow) {
+      printWindow.document.write(printContent);
+      printWindow.document.close();
+      printWindow.focus();
+      setTimeout(() => {
+        printWindow.print();
+        printWindow.close();
+      }, 250);
+    }
+
+    toast({
+      title: "PDF Export Initiated",
+      description: "Print dialog opened for PDF export",
+    });
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
@@ -64,10 +163,24 @@ const AdminReports = () => {
               <SelectItem value="last_year">Last Year</SelectItem>
             </SelectContent>
           </Select>
-          <Button variant="outline">
-            <Calendar className="w-4 h-4 mr-2" />
-            Export Report
-          </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline">
+                <Download className="w-4 h-4 mr-2" />
+                Export Report
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="bg-white border shadow-lg z-50">
+              <DropdownMenuItem onClick={exportRevenueToExcel}>
+                <FileText className="w-4 h-4 mr-2" />
+                Export as Excel (CSV)
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={exportRevenueToPDF}>
+                <FileText className="w-4 h-4 mr-2" />
+                Export as PDF
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </div>
 
