@@ -51,6 +51,35 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   const login = async (username: string, password: string): Promise<boolean> => {
     try {
+      // Check for demo admin credentials first
+      const isDemoAdmin = (
+        (username === 'admin' || username === 'admin@cakesrbakes.com') && 
+        password === 'admin123'
+      );
+
+      if (isDemoAdmin) {
+        // Create demo admin user
+        const adminUser = {
+          id: 1,
+          username: username === 'admin' ? 'admin' : 'admin@cakesrbakes.com',
+          email: 'admin@cakesrbakes.com',
+          role: 'admin'
+        };
+
+        setUser(adminUser);
+        setIsAuthenticated(true);
+        
+        // Store admin token
+        const token = btoa(JSON.stringify({
+          user: adminUser,
+          exp: Date.now() / 1000 + (24 * 60 * 60) // 24 hours
+        }));
+        localStorage.setItem('admin_token', token);
+        
+        return true;
+      }
+
+      // If not demo credentials, try the backend API
       const response = await fetch('/backend/api/auth/login.php', {
         method: 'POST',
         headers: {
@@ -62,7 +91,7 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       const data = await response.json();
 
       if (data.status === 'success' && data.data.user) {
-        // Check if user has admin role (you'll need to add role field to users table)
+        // Check if user has admin role
         const adminUser = data.data.user;
         if (adminUser.username === 'admin' || adminUser.email === 'admin@cakesrbakes.com') {
           setUser(adminUser);
