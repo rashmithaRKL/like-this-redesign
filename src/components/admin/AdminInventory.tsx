@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -93,7 +92,7 @@ const AdminInventory = () => {
       ? selectedItem.current_stock + qty
       : Math.max(0, selectedItem.current_stock - qty);
 
-    const newStatus = newStock <= 0 ? 'out_of_stock' 
+    const newStatus: 'in_stock' | 'low_stock' | 'out_of_stock' = newStock <= 0 ? 'out_of_stock' 
       : newStock <= selectedItem.min_stock_level ? 'low_stock' 
       : 'in_stock';
 
